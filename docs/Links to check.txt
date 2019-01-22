@@ -1,2 +1,13 @@
 1)Data Visualization and other infos:
 https://www.kaggle.com/mjbahmani/probability-of-earthquake/comments
+
+2)Data Visualization and Dataset explain
+https://www.kaggle.com/jsaguiar/seismic-data-exploration/comments
+
+3)Problem approach opinions
+https://www.kaggle.com/mhviraf/a-few-thought-on-how-to-approach-this-problem
+
+
+-----RNN Implementations-----
+1)https://www.kaggle.com/mayer79/rnn-starter-clean-validation/comments
+2)https://www.kaggle.com/shubhammank/earthquake-prediction-rnn/comments
