@@ -17,9 +17,8 @@ with zipfile.ZipFile("/content/data/train.csv.zip","r") as zip_ref:
     zip_ref.extractall("/content/data/earthquake")
 
 #read dataset with Pandas
-dt = { 'acoustic_data': 'i2', 'time_to_failure': 'f8' }
-data = pandas.read_csv("/content/data/earthquake/train.csv", dtype=dt, engine='c', low_memory=True)
-data = pd.read_csv('/content/data/earthquake/train.csv')
+#dt = { 'acoustic_data': 'i2', 'time_to_failure': 'f8' }
+#data = pd.read_csv('/content/data/earthquake/train.csv')
 
 
 
