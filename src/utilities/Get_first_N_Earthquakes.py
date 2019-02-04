@@ -1,3 +1,10 @@
+###################################################################
+#BEFORE EXECUTING THE BELOW COMMAND, READ THESE COMMENTS          #
+#!!! This code requires to run download_dataset.py code !!!       #   
+#After executing the commands, the file first_two_earthquakes.csv #
+#will be created to datasets/Eartquake_prediction/ (Google Drive) #
+###################################################################
+
 #mount your Google Drive
 #follow the commands prompted when executing the commands below
 from google.colab import drive
