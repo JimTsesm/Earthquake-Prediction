@@ -1,7 +1,7 @@
 import math 
 import csv
 import numpy as np
-from numpy import genfromtxt
+import utils
 
 def get_sub_time_serie(start, end):
 	list_of_time_series = []
@@ -26,33 +26,39 @@ def get_sub_time_serie(start, end):
 	
 def get_sub_time_serie(dataset, dateset_len, window_size, step):
   start = 1
-  end = start+150000
+  end = start+window_size
+  print(str(start) + ' ' + str(end))
   list_of_time_series = []
   time_to_failure_list = []
   while(end <= dateset_len):
-    print(str(start)+' '+str(end))
     time_to_failure_list.append(dataset[end-1][1])
     list_of_time_series.append(dataset[start:end, 0])
     start += step
     end += step
   return np.array(time_to_failure_list), np.array(list_of_time_series)
-	
-#DATASET_FILE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/small.csv'
-DATASET_FILE_PATH = '/home/jim/Desktop/Kaggle Competitions/first_two_earthquakes.csv'
-STEPS = 1000000
-TIME_SERIES_LENGTH = 150000
-DATASET_SIZE = 50000000
-DATASET_START = 0
-DATASET_END = DATASET_SIZE
+
+
+##############################################
+###################   MAIN   #################
+
+# DATASET_FILE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/small.csv'
+# STEPS = 1000000
+# TIME_SERIES_LENGTH = 150000
+# DATASET_SIZE = 20000000
+# DATASET_START = 0
+# DATASET_END = DATASET_SIZE
 
 #datapoints_sum = END - START
 #time_series_number = math.floor(datapoints_sum/TIME_SERIES_LENGTH)
 #print(time_series_number)
 
 #Read dataset to numpy array
-dataset = genfromtxt(DATASET_FILE_PATH, delimiter = ',')
-labels, sub_timeseries = get_sub_time_serie(dataset[DATASET_START:DATASET_END], DATASET_SIZE, TIME_SERIES_LENGTH, STEPS)
-print(len(labels))
+#dataset = utils.read_dataset(DATASET_FILE_PATH)
+
+#labels, sub_timeseries = get_sub_time_serie(dataset[DATASET_START:DATASET_END], DATASET_SIZE, TIME_SERIES_LENGTH, STEPS)
+#print(len(labels))
+#print("Labels:")
+#print(str(labels[0])+" "+str(labels[1])+" "+str(labels[2]) )
 
 
 

@@ -4,6 +4,14 @@ import matplotlib.pyplot as plt
 import matplotlib
 import csv
 import math
+from numpy import genfromtxt
+
+
+def read_dataset(path):
+	print("Start reading "+path)
+	dataset = genfromtxt(path, delimiter = ',')
+	print("End reading "+path+"\n\n")
+	return dataset
 
 
 def next_batch(data, num_of_batch,batch_size):
@@ -15,4 +23,4 @@ def next_batch(data, num_of_batch,batch_size):
 
 
 def get_random_data():
-	return np.random.rand(1000,150),np.random.rand(100,1)
+	return np.random.rand(1000,100),np.random.rand(1000,1)
