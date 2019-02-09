@@ -37,20 +37,21 @@ def get_sub_time_serie(dataset, dateset_len, window_size, step):
     end += step
   return np.array(time_to_failure_list), np.array(list_of_time_series)
 	
-DATASET_FILE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/small.csv'
-STEPS = 5000
+#DATASET_FILE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/small.csv'
+DATASET_FILE_PATH = '/home/jim/Desktop/Kaggle Competitions/first_two_earthquakes.csv'
+STEPS = 1000000
 TIME_SERIES_LENGTH = 150000
-#NROWS = 100000000
-#START = 5656574
-#END = 50085877
+DATASET_SIZE = 50000000
+DATASET_START = 0
+DATASET_END = DATASET_SIZE
 
-datapoints_sum = END - START
-time_series_number = math.floor(datapoints_sum/TIME_SERIES_LENGTH)
-print(time_series_number)
+#datapoints_sum = END - START
+#time_series_number = math.floor(datapoints_sum/TIME_SERIES_LENGTH)
+#print(time_series_number)
 
 #Read dataset to numpy array
-#dataset = genfromtxt(DATASET_FILE_PATH, delimiter = ',')
-labels, sub_timeseries = get_sub_time_serie(dataset[0:1000001], 1000001, TIME_SERIES_LENGTH, STEPS)
+dataset = genfromtxt(DATASET_FILE_PATH, delimiter = ',')
+labels, sub_timeseries = get_sub_time_serie(dataset[DATASET_START:DATASET_END], DATASET_SIZE, TIME_SERIES_LENGTH, STEPS)
 print(len(labels))
 
 
