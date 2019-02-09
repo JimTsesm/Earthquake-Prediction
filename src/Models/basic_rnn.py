@@ -7,24 +7,30 @@ import utils
 
 # RNN parametres
 learning_rate = 0.001
-epochs = 300
+epochs = 100
 inputs_num=1
 output_neurons = 1
 units_num = 128
 sequence_length = 150
 batch_size = 128
-layers_num = 1
+layers_num = 2
 
 xplaceholder= tf.placeholder('float',[None,sequence_length,inputs_num])
 yplaceholder = tf.placeholder('float',[None,sequence_length,output_neurons])
 
+#define dnn model
+def dnn_layers(input_layers):
+	dense1 = tf.layers.dense(inputs=input_layers, units=64)
+	return dense1
+
 # define rnn model
 def rnn_model():
 
-	gru_cell = tf.contrib.rnn.LSTMCell(num_units=units_num,activation=tf.nn.relu)
-	cell=tf.contrib.rnn.OutputProjectionWrapper(gru_cell,output_size=output_neurons)
-	outputs,states=tf.nn.dynamic_rnn(cell,xplaceholder,dtype=tf.float32)
-	return outputs
+	lstm_cell = tf.contrib.rnn.LSTMCell(num_units=units_num,activation=tf.nn.relu)
+	cell=tf.contrib.rnn.OutputProjectionWrapper(lstm_cell,output_size=output_neurons)
+	lstm_outputs,states=tf.nn.dynamic_rnn(cell,xplaceholder,dtype=tf.float32)
+	
+	return dnn_layers(lstm_outputs)
 
 logits = rnn_model()
 # select loss function and optimizer
