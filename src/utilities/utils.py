@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 import matplotlib
 import csv
 import math
+import datetime
 from numpy import genfromtxt
+from sklearn.metrics import mean_absolute_error
 
 
 def read_dataset(path):
@@ -13,6 +15,25 @@ def read_dataset(path):
 	print("End reading "+path+"\n\n")
 	return dataset
 
+def read_dataset2(path):
+	print("Start reading "+path)
+	dataset = genfromtxt(path, delimiter = ',')
+	print("End reading "+path+"\n\n")
+	train_inputs = []
+	train_labels = []
+	for i in range(0,len(dataset)):
+		train_inputs.append(np.array(dataset[i][0:len(dataset[i])-1]))
+		train_labels.append(dataset[i][-1])
+	return np.array(train_labels), np.array(train_inputs)
+
+def write_dataset(train_inputs, train_labels, path, file_name):
+	w = csv.writer(open(path+file_name, "w"))
+	for i in range(0,len(train_labels)):
+		l = []
+		for j in range(0,len(train_inputs[i])):
+			l.append(str(train_inputs[i][j]))
+		l.append(str(train_labels[i]))
+		w.writerow(l)
 
 def next_batch(data, num_of_batch,batch_size):
   start_index = num_of_batch*batch_size
@@ -22,5 +43,24 @@ def next_batch(data, num_of_batch,batch_size):
   return data[start_index:end_index]
 
 
+#def get_random_data():
+#	return np.random.rand(1000,100),np.random.rand(1000,1)
+
 def get_random_data():
-	return np.random.rand(1000,100),np.random.rand(1000,1)
+	return np.random.rand(4,5),np.random.rand(4,1),np.random.rand(100,5),np.random.rand(100,1)
+
+def compute_error(labels,preds):
+	assert len(labels) == len(preds)
+	return mean_absolute_error(labels,preds)
+
+def suffle_data(a, b):
+    assert len(a) == len(b)
+    p = np.random.permutation(len(a))
+    return a[p], b[p]
+
+def plot_epoch_loss(epoch_loss_list, epoch_index_list, path):
+	plt.ylabel('Epoch loss')
+	plt.xlabel('Epoch #')
+	plt.plot(epoch_index_list, epoch_loss_list)
+	plt.savefig(path+'plot_'+str(datetime.datetime.now())+'.jpeg')
+
