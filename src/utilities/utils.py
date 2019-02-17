@@ -15,13 +15,15 @@ def read_dataset(path):
 	print("End reading "+path+"\n\n")
 	return dataset
 
-def read_dataset2(path):
+def read_dataset2(path, nrows):
 	print("Start reading "+path)
 	dataset = genfromtxt(path, delimiter = ',')
 	print("End reading "+path+"\n\n")
 	train_inputs = []
 	train_labels = []
 	for i in range(0,len(dataset)):
+		if(i == nrows):
+			break
 		train_inputs.append(np.array(dataset[i][0:len(dataset[i])-1]))
 		train_labels.append(dataset[i][-1])
 	return np.array(train_labels), np.array(train_inputs)
