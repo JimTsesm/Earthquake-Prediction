@@ -5,27 +5,29 @@ from tensorflow.contrib import rnn
 # Helper libraries and utils
 import sys
 sys.path.append('/content/gdrive/My Drive/Earthquake_Prediction/src/utilities/')
+sys.path.append('/content/gdrive/My Drive/Earthquake_Prediction/src/preprocessing/')
 import split_timeries
 import utils
+import preprocess
 import numpy as np
 
 # CONSTANTS
 DATASET_FILE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/small.csv'
 DATASET_WRITE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/'
 SAVE_PLOT_PATH = '/content/gdrive/My Drive/Earthquake_Prediction/plots/'
-STEPS = 20000
-TIME_SERIES_LENGTH = 100
+STEPS = 200000
+TIME_SERIES_LENGTH = 1500
 DATASET_SIZE = 20000000
 DATASET_START = 0
 DATASET_END = DATASET_SIZE
 
 # RNN parametres
 learning_rate = 0.001
-epochs = 500
+epochs = 100
 inputs_num=1
 output_neurons = 1
 units_num = 128
-batch_size = 128
+batch_size = 64
 layers_num = 2
 drop_prob = 0.4
 
@@ -88,10 +90,19 @@ init=tf.global_variables_initializer()
 #utils.write_dataset(train_inputs, train_labels, DATASET_WRITE_PATH, 'small_small.csv')
 
 #Read saved dataset
-train_labels, train_inputs = utils.read_dataset2(DATASET_WRITE_PATH+'small_small.csv')
+train_labels, train_inputs = utils.read_dataset2(DATASET_WRITE_PATH+'splited_150000.csv')
+
+#Reduce time serie dimension to TIME_SERIES_LENGTH
+train_inputs = utils.dim_reduction(train_inputs, TIME_SERIES_LENGTH)
+
+#Normalize dataset to 0 1
+train_inputs = preprocess.normalize_dataset(train_inputs)
+
 print(len(train_labels))
 print(len(train_inputs))
 print(len(train_inputs[0]))
+
+#train_inputs, train_labels = utils.get_random_data()
 
 
 train_iters = 0
