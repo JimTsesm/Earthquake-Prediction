@@ -28,7 +28,7 @@ inputs_num=1
 output_neurons = 1
 units_num = 128
 batch_size = 64
-layers_num = 2
+layers_num = 1
 drop_prob = 0.4
 
 
@@ -90,10 +90,10 @@ init=tf.global_variables_initializer()
 #utils.write_dataset(train_inputs, train_labels, DATASET_WRITE_PATH, 'small_small.csv')
 
 #Read saved dataset
-train_labels, train_inputs = utils.read_dataset2(DATASET_WRITE_PATH+'splited_150000.csv')
+train_labels, train_inputs = utils.read_dataset2(DATASET_WRITE_PATH+'splited_1000_1500.csv', 1000)
 
 #Reduce time serie dimension to TIME_SERIES_LENGTH
-train_inputs = utils.dim_reduction(train_inputs, TIME_SERIES_LENGTH)
+#train_inputs = utils.dim_reduction(train_inputs, TIME_SERIES_LENGTH)
 
 #Normalize dataset to 0 1
 train_inputs = preprocess.normalize_dataset(train_inputs)
