@@ -41,13 +41,30 @@ def next_batch(data, num_of_batch,batch_size):
   if(end_index > len(data)):
     end_index = len(data)
   return data[start_index:end_index]
+  
 
+def dim_reduction(data,new_len):
+	print("Start length reduction")
+	window = int(len(data[0]) / new_len)	
+	result = []
+	for timeserie in data:
+		reduced_timeserie = []
+		for index in range(0,new_len):
+			start_index = index*window
+			end_index = index*window + window
 
-#def get_random_data():
-#	return np.random.rand(1000,100),np.random.rand(1000,1)
+			reduced_timeserie.append(np.mean(timeserie[start_index:end_index]))
+
+		result.append(np.array(reduced_timeserie))
+	print("End length reduction")
+	return np.array(result)
+
 
 def get_random_data():
-	return np.random.rand(4,5),np.random.rand(4,1),np.random.rand(100,5),np.random.rand(100,1)
+	return np.random.rand(100,1500),np.random.rand(100,1)
+
+#def get_random_data():
+#	return np.random.rand(100,1500),np.random.rand(100,1),np.random.rand(100,1500),np.random.rand(100,1)
 
 def compute_error(labels,preds):
 	assert len(labels) == len(preds)
