@@ -29,3 +29,6 @@ drive.mount('/content/gdrive')
 #Earthquake 15:585568143
 #Earthquake 16:621985672
 !head -n 50085877 /content/data/earthquake/train.csv > /content/gdrive/My\ Drive/datasets/Eartquake_prediction/first_two_earthquakes.csv
+
+#Append a csv to another
+!cat /content/gdrive/My\ Drive/datasets/Eartquake_prediction/processed/eq2_1619_1500_2.csv >> /content/gdrive/My\ Drive/datasets/Eartquake_prediction/processed/eq2_1324_1500.csv

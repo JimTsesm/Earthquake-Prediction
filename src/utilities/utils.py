@@ -12,20 +12,19 @@ from sklearn.metrics import mean_absolute_error
 def read_dataset(path):
 	print("Start reading "+path)
 	dataset = genfromtxt(path, delimiter = ',')
-	print("End reading "+path+"\n\n")
+	print("End reading "+path+". Read "+str(len(dataset))+" lines."+"\n\n")
 	return dataset
 
-def read_dataset2(path, nrows):
+def read_dataset2(path):
 	print("Start reading "+path)
 	dataset = genfromtxt(path, delimiter = ',')
 	print("End reading "+path+"\n\n")
 	train_inputs = []
 	train_labels = []
 	for i in range(0,len(dataset)):
-		if(i == nrows):
-			break
 		train_inputs.append(np.array(dataset[i][0:len(dataset[i])-1]))
 		train_labels.append(dataset[i][-1])
+	print("End reading "+path+". Read "+str(len(train_labels))+" lines."+"\n\n")
 	return np.array(train_labels), np.array(train_inputs)
 
 def write_dataset(train_inputs, train_labels, path, file_name):
@@ -36,6 +35,7 @@ def write_dataset(train_inputs, train_labels, path, file_name):
 			l.append(str(train_inputs[i][j]))
 		l.append(str(train_labels[i]))
 		w.writerow(l)
+	
 
 def next_batch(data, num_of_batch,batch_size):
   start_index = num_of_batch*batch_size

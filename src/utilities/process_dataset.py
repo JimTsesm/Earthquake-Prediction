@@ -6,14 +6,14 @@ import utils
 import numpy as np
 
 # CONSTANTS
-STEPS = 20000
+STEPS = 15000
 TIME_SERIES_LENGTH = 150000
 NEW_TIME_SERIES_LENGTH = 1500
-DATASET_SIZE = 20000000
+DATASET_SIZE = 24429302
 DATASET_START = 0
 DATASET_END = DATASET_SIZE
-DATASET_FILE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/small.csv'
-DATASET_WRITE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/'
+DATASET_FILE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/eq2_20m_50m.csv'
+DATASET_WRITE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/processed/'
 
 
 #Read dataset to numpy array
@@ -25,10 +25,10 @@ train_labels, train_inputs = split_timeries.get_sub_time_serie(dataset[DATASET_S
 train_inputs = utils.dim_reduction(train_inputs, NEW_TIME_SERIES_LENGTH)
 
 #Write the new dataset
-utils.write_dataset(train_inputs, train_labels, DATASET_WRITE_PATH, 'splited_1000_1500.csv')
+utils.write_dataset(train_inputs, train_labels, DATASET_WRITE_PATH, 'eq2_1300_1500_2.csv')
 
 #Read saved dataset
-train_labels, train_inputs = utils.read_dataset2(DATASET_WRITE_PATH+'splited_1000_1500.csv')
+train_labels, train_inputs = utils.read_dataset2(DATASET_WRITE_PATH+'eq2_1300_1500_2.csv')
 print(len(train_labels))
 print(len(train_inputs))
 print(len(train_inputs[0]))

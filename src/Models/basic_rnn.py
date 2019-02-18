@@ -12,8 +12,8 @@ import preprocess
 import numpy as np
 
 # CONSTANTS
-DATASET_FILE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/small.csv'
-DATASET_WRITE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/'
+#DATASET_FILE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/small.csv'
+DATASET_READ_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/processed/'
 SAVE_PLOT_PATH = '/content/gdrive/My Drive/Earthquake_Prediction/plots/'
 STEPS = 200000
 TIME_SERIES_LENGTH = 1500
@@ -81,19 +81,10 @@ optimizer=tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(loss)
 
 init=tf.global_variables_initializer()
 
-#Read dataset to numpy array
-#dataset = utils.read_dataset(DATASET_FILE_PATH)
-
-#train_labels, train_inputs = split_timeries.get_sub_time_serie(dataset[DATASET_START:DATASET_END], DATASET_SIZE, TIME_SERIES_LENGTH, STEPS)
-
-#Write the new dataset
-#utils.write_dataset(train_inputs, train_labels, DATASET_WRITE_PATH, 'small_small.csv')
 
 #Read saved dataset
-train_labels, train_inputs = utils.read_dataset2(DATASET_WRITE_PATH+'splited_1000_1500.csv', 1000)
+train_labels, train_inputs = utils.read_dataset2(DATASET_READ_PATH+'eq2_2943_1500.csv')
 
-#Reduce time serie dimension to TIME_SERIES_LENGTH
-#train_inputs = utils.dim_reduction(train_inputs, TIME_SERIES_LENGTH)
 
 #Normalize dataset to 0 1
 train_inputs = preprocess.normalize_dataset(train_inputs)
