@@ -18,7 +18,6 @@ def read_dataset(path):
 def read_dataset2(path):
 	print("Start reading "+path)
 	dataset = genfromtxt(path, delimiter = ',')
-	print("End reading "+path+"\n\n")
 	train_inputs = []
 	train_labels = []
 	for i in range(0,len(dataset)):
@@ -63,7 +62,9 @@ def dim_reduction(data,new_len):
 
 
 def get_random_data():
-	return np.random.rand(100,1500),np.random.rand(100,1)
+	x=np.random.rand(3000,1)
+	x_new=np.multiply(x,15)
+	return np.random.rand(3000,150), x_new
 
 #def get_random_data():
 #	return np.random.rand(100,1500),np.random.rand(100,1),np.random.rand(100,1500),np.random.rand(100,1)
