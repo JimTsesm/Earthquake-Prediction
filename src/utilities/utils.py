@@ -44,7 +44,7 @@ def next_batch(data, num_of_batch,batch_size):
   return data[start_index:end_index]
   
 
-def dim_reduction(data,new_len):
+def dim_reduction_only_mean(data,new_len):
 	print("Start length reduction")
 	window = int(len(data[0]) / new_len)	
 	result = []
@@ -55,11 +55,31 @@ def dim_reduction(data,new_len):
 			end_index = index*window + window
 
 			reduced_timeserie.append(np.mean(timeserie[start_index:end_index]))
-
 		result.append(np.array(reduced_timeserie))
 	print("End length reduction")
 	return np.array(result)
 
+def dim_reduction_4_features(data,new_len):
+	print("Start length reduction")
+	window = int(len(data[0]) / new_len)	
+	result = []
+	for timeserie in data:
+		reduced_timeserie = []
+		reduced_timeserie2 = []
+		reduced_timeserie3 = []
+		reduced_timeserie4 = []
+		final_list = []
+		for index in range(0,new_len):
+			start_index = index*window
+			end_index = index*window + window
+
+			reduced_timeserie.append(np.mean(timeserie[start_index:end_index]))
+			reduced_timeserie2.append(np.min(timeserie[start_index:end_index]))
+			reduced_timeserie3.append(np.max(timeserie[start_index:end_index]))
+			reduced_timeserie4.append(np.std(timeserie[start_index:end_index]))
+		result.append(reduced_timeserie+reduced_timeserie2+reduced_timeserie3+reduced_timeserie4)
+	print("End length reduction")
+	return np.array(result)
 
 def get_random_data():
 	x=np.random.rand(3000,1)

@@ -22,7 +22,7 @@ DATASET_START = 0
 DATASET_END = DATASET_SIZE
 
 # RNN parametres
-learning_rate = 0.01
+learning_rate = 0.001
 epochs = 50
 inputs_num=1
 output_neurons = 1
@@ -52,9 +52,11 @@ def dnn(lstm_output):
     'out': tf.Variable(tf.random_normal([output_neurons]))
     }
 
-    layer_1 = tf.nn.relu(tf.add(tf.matmul(lstm_output, weights['h1']), biases['b1']))
-    out_layer = tf.nn.relu(tf.matmul(layer_1, weights['out']) + biases['out'])
-
+    #layer_1 = tf.nn.relu(tf.add(tf.matmul(lstm_output, weights['h1']), biases['b1']))
+    #out_layer = tf.nn.relu(tf.matmul(layer_1, weights['out']) + biases['out'])
+    layer_1 = tf.add(tf.matmul(lstm_output, weights['h1']), biases['b1'])
+    out_layer = tf.matmul(layer_1, weights['out']) + biases['out']
+	
     return out_layer
 
 # define rnn model
@@ -83,15 +85,14 @@ init=tf.global_variables_initializer()
 
 
 #Read saved dataset
-#train_labels, train_inputs = utils.read_dataset2(DATASET_READ_PATH+'eq2_9000_150.csv')
-#
-#
-#print(len(train_labels))
-#print(len(train_inputs))
-#print(len(train_inputs[0]))
+train_labels, train_inputs = utils.read_dataset2(DATASET_READ_PATH+'eq2_150.csv')
 
-train_inputs, train_labels = utils.get_random_data()
-print(train_labels)
+
+print(len(train_labels))
+print(len(train_inputs))
+print(len(train_inputs[0]))
+
+#train_inputs, train_labels = utils.get_random_data()
 
 train_iters = 0
 if(len(train_labels) % batch_size == 0):
@@ -115,8 +116,8 @@ with tf.Session() as sess:
             batch_y = batch_y.reshape((-1,output_neurons))
             _, c = sess.run([optimizer, loss], feed_dict={xplaceholder: batch_x, yplaceholder: batch_y})
             epoch_loss += c/train_iters
-            if(i==0 or i==train_iters-1):
-                print(sess.run(logits, feed_dict={xplaceholder: batch_x, yplaceholder: batch_y}))
+            #if(i==0 or i==train_iters-1):
+            #    print(sess.run(logits, feed_dict={xplaceholder: batch_x, yplaceholder: batch_y}))
         epoch_loss_list.append(epoch_loss)
         epoch_index_list.append(epoch+1)
         print('Epoch', epoch+1, 'completed out of', epochs, 'loss:', epoch_loss)
