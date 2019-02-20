@@ -10,6 +10,7 @@ import split_timeries
 import utils
 import preprocess
 import numpy as np
+from sklearn.externals import joblib
 
 # CONSTANTS
 #DATASET_FILE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/small.csv'
@@ -23,7 +24,7 @@ DATASET_END = DATASET_SIZE
 
 # RNN parametres
 learning_rate = 0.001
-epochs = 50
+epochs = 100
 inputs_num=1
 output_neurons = 1
 units_num = 128
@@ -85,8 +86,10 @@ init=tf.global_variables_initializer()
 
 
 #Read saved dataset
-train_labels, train_inputs = utils.read_dataset2(DATASET_READ_PATH+'eq2_150.csv')
+train_labels, train_inputs = utils.read_dataset2(DATASET_READ_PATH+'eq2_9000_150_standarized.csv')
 
+#Load saved Scaler
+loaded_minmax_scaler = joblib.load('/content/gdrive/My Drive/Earthquake_Prediction/scalers/minmaxScaler.pkl')
 
 print(len(train_labels))
 print(len(train_inputs))
@@ -117,7 +120,7 @@ with tf.Session() as sess:
             _, c = sess.run([optimizer, loss], feed_dict={xplaceholder: batch_x, yplaceholder: batch_y})
             epoch_loss += c/train_iters
             #if(i==0 or i==train_iters-1):
-            #    print(sess.run(logits, feed_dict={xplaceholder: batch_x, yplaceholder: batch_y}))
+                #print(loaded_minmax_scaler.inverse_transform(sess.run(logits, feed_dict={xplaceholder: batch_x, yplaceholder: batch_y}).reshape(-1,1)).reshape(1,-1)[0])
         epoch_loss_list.append(epoch_loss)
         epoch_index_list.append(epoch+1)
         print('Epoch', epoch+1, 'completed out of', epochs, 'loss:', epoch_loss)
