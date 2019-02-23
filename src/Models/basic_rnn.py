@@ -14,13 +14,9 @@ from sklearn.externals import joblib
 
 # CONSTANTS
 #DATASET_FILE_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/small.csv'
-DATASET_READ_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/processed/'
+DATASET_READ_PATH = '/content/gdrive/My Drive/datasets/Eartquake_prediction/processed/eq2_9000_150_standarized.csv'
 SAVE_PLOT_PATH = '/content/gdrive/My Drive/Earthquake_Prediction/plots/'
-STEPS = 200000
 TIME_SERIES_LENGTH = 150
-DATASET_SIZE = 20000000
-DATASET_START = 0
-DATASET_END = DATASET_SIZE
 
 # RNN parametres
 learning_rate = 0.001
@@ -86,7 +82,7 @@ init=tf.global_variables_initializer()
 
 
 #Read saved dataset
-train_labels, train_inputs = utils.read_dataset2(DATASET_READ_PATH+'eq2_9000_150_standarized.csv')
+train_labels, train_inputs = utils.read_dataset2(DATASET_READ_PATH)
 
 #Load saved Scaler
 loaded_minmax_scaler = joblib.load('/content/gdrive/My Drive/Earthquake_Prediction/scalers/minmaxScaler.pkl')
