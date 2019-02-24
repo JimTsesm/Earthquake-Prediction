@@ -49,7 +49,7 @@ def normalize_partial_fit(inputs, scaler, path_to_save):
     print("Partial fitting")
     scaler.partial_fit(inputs)
     #save the scaler to file
-    joblib.dump(standar_scaler, path_to_save)
+    joblib.dump(scaler, path_to_save)
 
 def standarize_partial_fit(inputs, scaler, path_to_save):
     print("Partial fitting...")
@@ -59,4 +59,4 @@ def standarize_partial_fit(inputs, scaler, path_to_save):
         start += 1000
         end += 1000
     #save the scaler to file
-    joblib.dump(standar_scaler, path_to_save)
+    joblib.dump(scaler, path_to_save)
