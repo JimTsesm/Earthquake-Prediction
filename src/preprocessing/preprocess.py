@@ -44,3 +44,19 @@ def standarize_dataset(inputs):
     joblib.dump(standar_scaler, '/content/gdrive/My Drive/Earthquake_Prediction/scalers/standarScaler.pkl')
     print("End standarizing")
     return data_scaled
+
+def normalize_partial_fit(inputs, scaler, path_to_save):
+    print("Partial fitting")
+    scaler.partial_fit(inputs)
+    #save the scaler to file
+    joblib.dump(standar_scaler, path_to_save)
+
+def standarize_partial_fit(inputs, scaler, path_to_save):
+    print("Partial fitting...")
+    #Partial fit to avoid memory problems
+    for pass_num in range(0,math.ceil(len(inputs)/1000)):
+        scaler.partial_fit(inputs[start:end])
+        start += 1000
+        end += 1000
+    #save the scaler to file
+    joblib.dump(standar_scaler, path_to_save)

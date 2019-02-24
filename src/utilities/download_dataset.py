@@ -2,6 +2,7 @@
 !pip install -U -q kaggle
 !mkdir -p ~/.kaggle
 !echo '{"username":"jimtses","key":"299551a3259810064114c84d9eb438d3"}' > ~/.kaggle/kaggle.json
+#!echo '{"username":"apostolosfflorakis","key":"d9d59b41fc51b2c68a9989ab29b0cdf5"}'
 !chmod 600 ~/.kaggle/kaggle.json
 
 !mkdir -p data
